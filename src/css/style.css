@@ -1,0 +1,94 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #fff;
+    color: #333;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+}
+
+.gloss {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    padding: 1vw;
+}
+
+.gloss__form {
+    flex: 1;
+    padding: 1vw;
+}
+
+.gloss__form form {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.gloss__form textarea {
+    flex: 1;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.gloss__form button {
+    font-size: 30px;
+    margin-top: 2vw;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    line-height: 1.4;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.gloss__form button:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
+.gloss__result {
+    flex: 1;
+    padding: 1vw;
+    overflow: auto;
+}
+
+.gloss__result table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.gloss__result th,
+.gloss__result tr:nth-child(2n) td {
+    background: #fafafa;
+}
+
+.gloss__result th, .gloss__result td {
+    border: 1px solid #ddd;
+    white-space: nowrap;
+    padding: 0.5em;
+}
+
+.gloss__result th {
+    font-weight: bold;
+    text-align: center;
+    padding: 0.7em;
+}
+
+.gloss__result td {
+    font-family: Times, Times New Roman, serif;
+}
