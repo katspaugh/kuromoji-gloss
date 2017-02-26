@@ -59,14 +59,15 @@ html, body {
 }
 
 .gloss__form {
-    flex: 1;
-    margin: 1vw;
+    box-sizing: border-box;
+    width: 50%;
     position: relative;
 }
 
 .gloss__form form {
     display: flex;
     flex-flow: column wrap;
+    margin: 1vw;
     position: absolute;
     left: 0;
     right: 0;
@@ -82,6 +83,8 @@ html, body {
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 1vw;
+    white-space: pre-line;
+    font-size: 0.8em;
 }
 
 .gloss__button {
@@ -109,7 +112,8 @@ html, body {
 }
 
 .gloss__result {
-    flex: 1;
+    box-sizing: border-box;
+    width: 50%;
     padding: 1vw;
     display: flex;
     flex-flow: column wrap;
