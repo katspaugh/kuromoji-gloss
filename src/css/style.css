@@ -35,7 +35,7 @@ html, body {
     align-items: center;
 }
 
-.gloss__credits span a {
+.gloss__credits span {
     color: #555;
     padding-right: 3em;
 }
