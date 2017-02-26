@@ -4,7 +4,7 @@ const webpack = require('webpack');
 var isProd = (process.env.NODE_ENV == 'production');
 
 module.exports = {
-  devtool: 'cheap-module-source-map',
+  devtool: isProd ? false : 'cheap-module-source-map',
   cache: true,
 
   entry: path.resolve(__dirname, 'src/index.js'),
