@@ -17,9 +17,7 @@ export default class Form extends React.Component {
       <form onSubmit={ this._onSubmit }>
         <textarea name="text" rows="20" cols="90" defaultValue={ value } />
 
-        <div>
-          <button type="submit">Create gloss</button>
-        </div>
+        <button className="gloss__button" type="submit">Create gloss</button>
       </form>
     );
   }

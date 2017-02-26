@@ -16,7 +16,46 @@ html, body {
     bottom: 0;
     z-index: 1;
     display: flex;
-    padding: 1vw;
+    flex-direction: column;
+}
+
+.gloss__header {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1vw 2vw;
+    background: #f1f1f1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gloss__credits {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gloss__credits span a {
+    color: #555;
+    padding-right: 3em;
+}
+
+.gloss__credits span a {
+    color: #333;
+}
+
+.gloss__header h1 {
+    text-align: left;
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0;
+}
+
+.gloss__main {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex: 1;
 }
 
 .gloss__form {
@@ -35,9 +74,12 @@ html, body {
     flex: 1;
     box-sizing: border-box;
     width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 1vw;
 }
 
-.gloss__form button {
+.gloss__button {
     font-size: 30px;
     margin-top: 2vw;
     display: inline-block;
@@ -55,7 +97,7 @@ html, body {
     background: #fff;
 }
 
-.gloss__form button:hover {
+.gloss__button:hover {
     color: #333;
     background-color: #e6e6e6;
     border-color: #adadad;
@@ -64,12 +106,21 @@ html, body {
 .gloss__result {
     flex: 1;
     padding: 1vw;
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.gloss__words {
     overflow: auto;
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 .gloss__result table {
     border-collapse: collapse;
     width: 100%;
+    margin-top: -1px;
 }
 
 .gloss__result th,
@@ -79,8 +130,13 @@ html, body {
 
 .gloss__result th, .gloss__result td {
     border: 1px solid #ddd;
+    border-left: none;
     white-space: nowrap;
     padding: 0.5em;
+}
+
+.gloss__result th:last-child, .gloss__result td:last-child {
+    border-right: none;
 }
 
 .gloss__result th {
@@ -91,4 +147,9 @@ html, body {
 
 .gloss__result td {
     font-family: Times, Times New Roman, serif;
+}
+
+.gloss__loader {
+    text-align: center;
+    padding: 1vw;
 }

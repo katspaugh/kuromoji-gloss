@@ -2,7 +2,10 @@ import React from 'react';
 
 import gloss from '../services/gloss.js';
 import loadDefinition from '../services/jisho.js';
+import exportCsv from '../services/csv.js';
 
+import Header from './header.jsx';
+import Loader from './loader.jsx';
 import Form from './form.jsx';
 import Words from './words.jsx';
 
@@ -14,7 +17,8 @@ export default class App extends React.Component {
       tokens: []
     };
 
-    this._onSubmit = (value) => this.process(value);
+    this._onSubmit = (value) => this.processText(value);
+    this._exportCsv = () => exportCsv(this.state.tokens);
   }
 
   loadDefinitions() {
@@ -35,7 +39,7 @@ export default class App extends React.Component {
     load(0);
   }
 
-  process(value) {
+  processText(value) {
     this.setState({ tokens: [] });
 
     gloss(value).then(data => {
@@ -45,14 +49,26 @@ export default class App extends React.Component {
   }
 
   render() {
+    const exportButton = this.state.tokens.length ?
+          (<button className="gloss__button" onClick={ this._exportCsv }>Export CSV</button>) :
+          '';
+
     return (
       <div className="gloss">
-        <div className="gloss__form">
-          <Form onSubmit={ this._onSubmit } />
-        </div>
+        <Header />
 
-        <div className="gloss__result">
-          <Words tokens={ this.state.tokens } />
+        <div className="gloss__main">
+          <div className="gloss__form">
+            <Form onSubmit={ this._onSubmit } />
+          </div>
+
+          <div className="gloss__result">
+            <Words tokens={ this.state.tokens } />
+
+            { exportButton }
+
+            <Loader />
+          </div>
         </div>
       </div>
     );

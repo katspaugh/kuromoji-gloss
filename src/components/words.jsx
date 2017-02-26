@@ -21,19 +21,21 @@ export default class Words extends React.Component {
     });
 
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Word</th>
-            <th>Reading</th>
-            <th width="100%">Definition</th>
-          </tr>
-        </thead>
+      <div className="gloss__words">
+        <table>
+          <thead>
+            <tr>
+              <th>Word</th>
+              <th>Reading</th>
+              <th width="100%">Definition</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          { words }
-        </tbody>
-      </table>
+          <tbody>
+            { words }
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
