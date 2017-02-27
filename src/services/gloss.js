@@ -26,8 +26,7 @@ export default function gloss(text) {
     const sentences = text.split(puctuationRe);
 
     sentences.map(sentence => {
-      const tokens = [];
-      tokenizer.tokenizeForSentence(sentence, tokens);
+      const tokens = tokenizer.tokenize(sentence);
 
       tokens.forEach(token => {
         // Ignore empty tokens
