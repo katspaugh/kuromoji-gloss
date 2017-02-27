@@ -3,13 +3,15 @@ import React from 'react';
 export default class Words extends React.Component {
   render() {
     const words = this.props.tokens.map((token, i) => {
-      const definitions = token.definitions ?
-            token.definitions[0].senses[0].english_definitions.join('; ') :
-            '';
+      let definitions = '';
+      try {
+        definitions = token.definitions[0].senses[0].english_definitions.join('; ');
+      } catch (e) {}
 
-      const reading = token.definitions ?
-            token.definitions[0].japanese[0].reading || token.reading:
-            token.reading;
+      let reading = token.reading;
+      try {
+        reading = token.definitions[0].japanese[0].reading || token.reading;
+      } catch (e) {}
 
       return (
         <tr key={ i }>
