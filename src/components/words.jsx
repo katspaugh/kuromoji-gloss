@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function render(props) {
+export default function Words(props) {
   const words = props.tokens.map((token, i) => (
     <div className="gloss__row" key={ i }>
       <div className="gloss__col-word">{ token.basic_form }</div>
@@ -12,7 +12,7 @@ export default function render(props) {
                 disabled={ !token.definition || token.definition.sense.length === 1 }
                 onClick={ () => props.onEdit(token) }>↺</button>
 
-        { token.meanings || '' }
+        { token.meanings || <span className="loader"></span> }
 
         <button className="gloss__button gloss__button-sm gloss__remove-button"
                 onClick={ () => props.onRemove(token) }>✕</button>

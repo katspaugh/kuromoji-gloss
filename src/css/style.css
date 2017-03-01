@@ -124,11 +124,19 @@ html, body {
     padding: 1vw;
     display: flex;
     flex-flow: column wrap;
+    position: relative;
 }
 
 .gloss__loader {
-    text-align: center;
     padding: 1vw;
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+    font-style: italic;
 }
 
 .gloss__words {
@@ -186,4 +194,47 @@ html, body {
 .gloss__remove-button {
     position: absolute;
     right: 0.5em;
+}
+
+
+.loader,
+.loader:before,
+.loader:after {
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    animation-fill-mode: both;
+    animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+    color: #ddd;
+    display: inline-block;
+    font-size: 4px;
+    position: relative;
+    text-indent: -9999em;
+    transform: translateZ(0) translateY(-100%) translateX(100%);
+    animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+    content: '';
+    position: absolute;
+    top: 0;
+}
+.loader:before {
+    left: -3.5em;
+    animation-delay: -0.32s;
+}
+.loader:after {
+    left: 3.5em;
+}
+@keyframes load7 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+        box-shadow: 0 2.5em 0 0;
+    }
 }
