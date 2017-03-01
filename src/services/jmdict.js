@@ -22,6 +22,3 @@ export function lookup(word, dictionary) {
     }
   }
 };
-
-// Preload the dictionary ASAP
-loadDictionary();
