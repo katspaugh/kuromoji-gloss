@@ -1,43 +1,34 @@
 import React from 'react';
 
-export default class Words extends React.Component {
-  render() {
-    const words = this.props.tokens.map((token, i) => {
-      let definitions = '';
-      try {
-        definitions = token.definitions[0].senses[0].english_definitions.join('; ');
-      } catch (e) {}
+export default function render(props) {
+  const words = props.tokens.map((token, i) => (
+    <div className="gloss__row" key={ i }>
+      <div className="gloss__col-word">{ token.basic_form }</div>
 
-      let reading = token.reading;
-      try {
-        reading = token.definitions[0].japanese[0].reading || token.reading;
-      } catch (e) {}
+      <div className="gloss__col-reading">{ token.reading }</div>
 
-      return (
-        <tr key={ i }>
-          <td>{ token.basic_form }</td>
-          <td>{ reading }</td>
-          <td>{ definitions }</td>
-        </tr>
-      );
-    });
+      <div className="gloss__col-meanings">
+        <button className="gloss__button gloss__button-sm gloss__edit-button"
+                disabled={ !token.definition || token.definition.sense.length === 1 }
+                onClick={ () => props.onEdit(token) }>↺</button>
 
-    return (
-      <div className="gloss__words">
-        <table>
-          <thead>
-            <tr>
-              <th>Word</th>
-              <th>Reading</th>
-              <th width="100%">Definition</th>
-            </tr>
-          </thead>
+        { token.meanings || '' }
 
-          <tbody>
-            { words }
-          </tbody>
-        </table>
+        <button className="gloss__button gloss__button-sm gloss__remove-button"
+                onClick={ () => props.onRemove(token) }>✕</button>
       </div>
-    );
-  }
-}
+    </div>
+  ));
+
+  return (
+    <div className="gloss__words">
+      <div className="gloss__row">
+        <div className="gloss__col-word">Word</div>
+        <div className="gloss__col-reading">Reading</div>
+        <div className="gloss__col-meanings">Meanings</div>
+      </div>
+
+      { words }
+    </div>
+  );
+};

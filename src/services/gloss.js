@@ -1,5 +1,6 @@
 import { uniqBy } from 'lodash';
 import getTokenizer from '../services/tokenizer.js';
+import { loadDictionary, lookup } from '../services/jmdict.js';
 
 
 const puctuationRe = /[。！？!?…\n]/g;
@@ -20,7 +21,7 @@ const ignoredPosDetails = [
   '接尾'
 ];
 
-export default function gloss(text) {
+export function tokenize(text) {
   return getTokenizer().then(tokenizer => {
     const allTokens = [];
     const sentences = text.split(puctuationRe);
@@ -49,3 +50,19 @@ export default function gloss(text) {
     return unique;
   });
 };
+
+export function loadDefinitions(tokens) {
+  return loadDictionary().then(dict => {
+    tokens.forEach(token => {
+      const definition = lookup(token.basic_form, dict);
+
+      if (definition) {
+        token.definition = definition;
+        token.meanings = definition.sense[0].gloss.join('; ');
+        token.reading = definition.kana[0];
+      }
+    });
+
+    return tokens;
+  });
+}

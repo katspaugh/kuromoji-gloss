@@ -1,7 +1,6 @@
 import React from 'react';
 
-import gloss from '../services/gloss.js';
-import loadDefinition from '../services/jisho.js';
+import { tokenize, loadDefinitions } from '../services/gloss.js';
 import exportCsv from '../services/csv.js';
 
 import Header from './header.jsx';
@@ -19,39 +18,39 @@ export default class App extends React.Component {
 
     this._onSubmit = (value) => this.processText(value);
     this._exportCsv = () => exportCsv(this.state.tokens);
-  }
-
-  loadDefinitions() {
-    const load = (index) => {
-      const token = this.state.tokens[index];
-
-      loadDefinition(token.basic_form)
-        .then(data => {
-          token.definitions = data;
-          this.setState({ tokens: this.state.tokens });
-
-          if (index < this.state.tokens.length - 1) {
-            load(index + 1);
-          }
-        });
-    };
-
-    load(0);
+    this._onEdit = (token) => this.rotateMeanings(token);
+    this._onRemove = (token) => this.deleteToken(token);
   }
 
   processText(value) {
     this.setState({ tokens: [] });
 
-    gloss(value).then(data => {
-      this.setState({ tokens: data });
-      this.loadDefinitions();
+    tokenize(value).then(tokens => {
+      this.setState({ tokens });
+
+      loadDefinitions(tokens).then(data => {
+        this.setState({ tokens: data });
+      });
     });
+  }
+
+  rotateMeanings(token) {
+    token._count = token._count || 0;
+    token._count = (token._count + 1) % token.definition.sense.length;
+    token.meanings = token.definition.sense[token._count].gloss.join('; ');
+
+    this.setState({ tokens: this.state.tokens });
+  }
+
+  deleteToken(token) {
+    this.state.tokens.splice(this.state.tokens.indexOf(token), 1);
+    this.setState({ tokens: this.state.tokens });
   }
 
   render() {
     const exportButton = this.state.tokens.length ?
-          (<button className="gloss__button" onClick={ this._exportCsv }>Export CSV</button>) :
-          '';
+      <button className="gloss__button gloss__button-lg" onClick={ this._exportCsv }>Export CSV</button> :
+      '';
 
     return (
       <div className="gloss">
@@ -63,7 +62,7 @@ export default class App extends React.Component {
           </div>
 
           <div className="gloss__result">
-            <Words tokens={ this.state.tokens } />
+            <Words tokens={ this.state.tokens } onEdit={ this._onEdit } onRemove={ this._onRemove } />
 
             { exportButton }
 
@@ -73,4 +72,4 @@ export default class App extends React.Component {
       </div>
     );
   }
-}
+};
