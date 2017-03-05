@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { tokenize, loadDefinitions } from '../services/gloss.js';
+import { tokenize, lookup } from '../services/gloss.js';
 import exportCsv from '../services/csv.js';
 
 import Header from './header.jsx';
@@ -22,22 +22,40 @@ export default class App extends React.Component {
     this._onRemove = (token) => this.deleteToken(token);
   }
 
+  loadDefinitions() {
+    const load = (index) => {
+      const token = this.state.tokens[index];
+
+      lookup(token.basic_form)
+        .then(data => {
+          token.definition = data;
+          token.reading = data.readings[0] || token.reading;
+          token.meanings = data.meanings[0].join('; ');
+
+          this.setState({ tokens: this.state.tokens });
+
+          if (index < this.state.tokens.length - 1) {
+            load(index + 1);
+          }
+        });
+    };
+
+    load(0);
+  }
+
   processText(value) {
     this.setState({ tokens: [] });
 
     tokenize(value).then(tokens => {
       this.setState({ tokens });
-
-      loadDefinitions(tokens).then(data => {
-        this.setState({ tokens: data });
-      });
+      this.loadDefinitions();
     });
   }
 
   rotateMeanings(token) {
     token._count = token._count || 0;
-    token._count = (token._count + 1) % token.definition.sense.length;
-    token.meanings = token.definition.sense[token._count].gloss.join('; ');
+    token._count = (token._count + 1) % token.definition.meanings.length;
+    token.meanings = token.definition.meanings[token._count].join('; ');
 
     this.setState({ tokens: this.state.tokens });
   }

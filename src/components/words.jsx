@@ -9,10 +9,12 @@ export default function Words(props) {
 
       <div className="gloss__col-meanings">
         <button className="gloss__button gloss__button-sm gloss__edit-button"
-                disabled={ !token.definition || token.definition.sense.length === 1 }
+                disabled={ !token.definition || token.definition.meanings.length === 1 }
                 onClick={ () => props.onEdit(token) }>↺</button>
 
-        { token.meanings || <span className="loader"></span> }
+        { token.meanings == null ?
+          <span className="loader"></span> :
+          token.meanings }
 
         <button className="gloss__button gloss__button-sm gloss__remove-button"
                 onClick={ () => props.onRemove(token) }>✕</button>

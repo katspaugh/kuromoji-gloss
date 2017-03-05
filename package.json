@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "postinstall": "cp -r node_modules/kuromoji/dict data/kuromoji/; curl -s 'https://raw.githubusercontent.com/scriptin/jmdict-simplified/master/build/jmdict_eng.json.tgz' | tar -xvvzf - && node ./bin/format-dict.js && rm jmdict_eng.json",
+    "postinstall": "cp -r node_modules/kuromoji/dict data/kuromoji/",
     "start": "webpack-dev-server --progress --colors",
     "prod": "NODE_ENV=production webpack -p",
     "test": "echo \"Error: no test specified\" && exit 1"

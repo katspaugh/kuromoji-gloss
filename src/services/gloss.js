@@ -1,7 +1,6 @@
 import { uniqBy } from 'lodash';
 import getTokenizer from '../services/tokenizer.js';
-import { loadDictionary, lookup } from '../services/jmdict.js';
-
+import loadDefinition from '../services/jisho.js';
 
 const puctuationRe = /[。！？!?…\n]/g;
 const kanjiRegex = /[^ぁ-んァ-ン]/u;
@@ -51,18 +50,14 @@ export function tokenize(text) {
   });
 };
 
-export function loadDefinitions(tokens) {
-  return loadDictionary().then(dict => {
-    tokens.forEach(token => {
-      const definition = lookup(token.basic_form, dict);
+export function lookup(word) {
+  return loadDefinition(word)
+    .then(data => {
+      const def = data[0];
 
-      if (definition) {
-        token.definition = definition;
-        token.meanings = definition.sense[0].gloss.join('; ');
-        token.reading = definition.kana[0];
-      }
+      return {
+        readings: def.japanese.map(n => n.reading),
+        meanings: def.senses.map(n => n.english_definitions)
+      };
     });
-
-    return tokens;
-  });
-}
+};

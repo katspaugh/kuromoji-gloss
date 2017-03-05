@@ -108,6 +108,14 @@ html, body {
     border-color: #adadad;
 }
 
+.gloss__button[disabled],
+.gloss__button[disabled]:hover {
+    background: #fff;
+    border-color: #ddd;
+    color: #ddd;
+    cursor: default;
+}
+
 .gloss__button-lg {
    font-size: 30px;
    margin-top: 2vw;
