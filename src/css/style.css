@@ -153,6 +153,8 @@ html, body {
     border: 1px solid #ddd;
     border-radius: 4px;
     font-family: Times, Times New Roman, serif;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .gloss__row {
