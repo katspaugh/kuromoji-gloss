@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "kuromoji": "^0.1.1",
+    "kuromoji": "^0.1.2",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
